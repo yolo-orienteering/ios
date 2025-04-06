@@ -13,7 +13,4 @@ protocol ConfigBase {
 
     /// Domains that will always be opened inside the app
     static var internalDomains: [String] { get }
-
-    /// URLs to be opened in the external browser
-    static var externalUrls: [URL] { get }
 }

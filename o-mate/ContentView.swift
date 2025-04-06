@@ -25,8 +25,6 @@ struct ContentView: View {
             if let url = URL(string: newValue) {
                 browser.open(url: url.absoluteString)
             }
-        }.onAppear {
-            trackingManager.requestTrackingAuthorizationIfNeeded()
         }
     }
 }
@@ -35,5 +33,4 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(appState: AppState.shared)
     }
-} ContentView()
 }

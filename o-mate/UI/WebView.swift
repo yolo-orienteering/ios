@@ -47,30 +47,6 @@ struct WebView: UIViewRepresentable {
             self.parent = parent
         }
 
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            let currentPos = scrollView.contentOffset.y
-            if currentPos < 50 {
-                withAnimation {
-                    parent.webViewState.showNavigation = true
-                }
-            } else if currentPos - lastPos < -10 {
-                if lastNavStatus == false {
-                    lastNavStatus = true
-                    withAnimation {
-                        parent.webViewState.showNavigation = true
-                    }
-                }
-            } else if currentPos - lastPos > 0 {
-                if lastNavStatus == true {
-                    lastNavStatus = false
-                    withAnimation {
-                        parent.webViewState.showNavigation = false
-                    }
-                }
-            }
-            lastPos = currentPos
-        }
-
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
             if navigationAction.navigationType == .other {
                 let url = navigationAction.request.url

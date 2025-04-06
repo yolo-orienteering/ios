@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct o_mateApp: App {
+    @StateObject private var appState = AppState.shared
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(appState: appState)
+                .onOpenURL(perform: { url in
+                    appState.currentURL = url.absoluteString
+                })
         }
     }
+}
+
+class AppState: ObservableObject {
+    @Published var currentURL: String = Config.startURL
+    
+    static let shared = AppState()
+    
+    private init() {}
 }

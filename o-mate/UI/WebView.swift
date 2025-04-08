@@ -42,19 +42,23 @@ struct WebView: UIViewRepresentable {
         var parent: WebView
         var lastPos = 0.0
         var lastNavStatus = true
-
+        
         init(_ parent: WebView) {
             self.parent = parent
         }
-
+        
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
+            let url = navigationAction.request.url
             if navigationAction.navigationType == .other {
-                let url = navigationAction.request.url
+                if (url != nil) && isExternalUrl(url!) {
+                    UIApplication.shared.open(url!)
+                    decisionHandler(.cancel)
+                    return
+                }
             }
             if navigationAction.navigationType == .linkActivated {
-                let host = navigationAction.request.url?.host
-                if (host != nil) && !Config.internalDomains.contains(host!) {
-                    UIApplication.shared.open(navigationAction.request.url!)
+                if (url != nil) && isExternalUrl(url!) {
+                    UIApplication.shared.open(url!)
                     decisionHandler(.cancel)
                     return
                 } else {
@@ -62,6 +66,11 @@ struct WebView: UIViewRepresentable {
                 }
             }
             decisionHandler(.allow)
+        }
+    
+        
+        private func isExternalUrl(_ url: URL) -> Bool {
+            return !Config.internalDomain.contains(url.host!)
         }
     }
 }

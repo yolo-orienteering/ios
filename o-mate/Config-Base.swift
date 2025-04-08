@@ -12,5 +12,5 @@ protocol ConfigBase {
     static var startURL: String { get }
 
     /// Domains that will always be opened inside the app
-    static var internalDomains: [String] { get }
+    static var internalDomain: String { get }
 }

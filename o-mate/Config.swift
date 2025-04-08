@@ -10,8 +10,5 @@ import Foundation
 struct Config: ConfigBase {
     static let appName = "o-mate"
     static let startURL = "https://o-mate.app"
-    static let internalDomains = [
-        "www.o-mate.app",
-        "o-mate.app",
-    ]
+    static let internalDomain = "o-mate.app"
 }

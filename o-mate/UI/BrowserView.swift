@@ -19,7 +19,7 @@ struct BrowserView: View {
         VStack(spacing: 0) {
             ProgressView(progress: model.loadingProgress)
             WebView(webView: self.model.webView!, request: self.model.request!, webViewState: webViewState)
-        }.edgesIgnoringSafeArea(.bottom)
+        }
     }
 }
 
